@@ -200,7 +200,7 @@ function decodeAll(){clips.forEach(function(u,i){var go=function(ab){try{var p=c
 function startAudio(){try{
  var AC=window.AudioContext||window.webkitAudioContext;if(!AC)return;
  ctx=new AC();if(ctx.resume)ctx.resume();
- master=ctx.createGain();master.gain.value=sound?.34:0;master.connect(ctx.destination);
+ master=ctx.createGain();master.gain.value=sound?.12:0;master.connect(ctx.destination);
  vgain=ctx.createGain();vgain.gain.value=sound?1:0;vgain.connect(ctx.destination);
  decodeAll();
  decodeMusic();}catch(e){}}
@@ -225,7 +225,7 @@ function beginMain(){
  if(introDone)return;introDone=true;
  var iv=$('introv');try{iv.pause()}catch(e){}
  show('s-intro',false);show('s-video',true);
- try{if(master&&sound)master.gain.value=.34;startMusic()}catch(e){}
+ try{if(master&&sound)master.gain.value=.12;startMusic()}catch(e){}
  var r=$('ribbon');r.style.animation='none';void r.offsetWidth;r.style.animation='coFade 1s 4s both';
  var v=$('vid');v.muted=true;v.currentTime=0;var p=v.play();if(p&&p.catch)p.catch(function(){goGate()});
  setTimeout(function(){if(!gone&&v.paused)goGate()},2500);
@@ -249,7 +249,7 @@ $('introv').onerror=beginMain;
 $('vid').onended=goGate;
 $('vid').onerror=goGate;
 $('replayBtn').onclick=function(){stopAll();introDone=true;show('s-intro',false);show('s-ring',false);try{$('ringv').pause()}catch(e){}try{$('introv').pause()}catch(e){}gone=false;show('s-show',false);show('s-gate',false);show('s-video',false);show('s-start',true);$('soundBtn').classList.add('hide')};
-$('soundBtn').onclick=function(){sound=!sound;this.textContent=sound?'Sound on':'Sound off';try{if(master)master.gain.value=(sound&&introDone)?.34:0;if(vgain)vgain.gain.value=sound?1:0;$('introv').muted=!sound}catch(e){}};
+$('soundBtn').onclick=function(){sound=!sound;this.textContent=sound?'Sound on':'Sound off';try{if(master)master.gain.value=(sound&&introDone)?.12:0;if(vgain)vgain.gain.value=sound?1:0;$('introv').muted=!sound}catch(e){}};
 document.addEventListener('visibilitychange',function(){try{if(ctx){if(document.hidden)ctx.suspend();else ctx.resume()}}catch(e){}});
 if(window.visualViewport)visualViewport.addEventListener('resize',fit);
 })();
