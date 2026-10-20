@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Nishant &amp; Prachi - Sagai Invitation</title>
+<meta name="description" content="You are warmly invited to the Sagai (Ring Ceremony) of Nishant Sharma and Prachi Sharma. 22 November 2026, Dinner 7:00 PM, Riviera Kohinoor, Meerut.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Nishant & Prachi - Sagai Invitation">
+<meta property="og:description" content="You are warmly invited! 22 Nov 2026, Dinner 7:00 PM, Meerut. Tap to open your invitation.">
+<meta property="og:image" content="https://nishant-prachi-sagai.onrender.com/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://nishant-prachi-sagai.onrender.com/">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Jost:wght@400;500&display=swap" rel="stylesheet">
+<style>
+html,body{margin:0;height:100%;background:#FFFDF8;overflow:hidden}
+#wrap{position:fixed;inset:0;display:flex;align-items:center;justify-content:center}
+#stage{position:relative;overflow:hidden;width:540px;height:960px;background:#FFFDF8;font-family:'Jost',sans-serif;color:#5A0F1F;transform-origin:center center;flex:none}
+.ab{position:absolute;left:0;top:0;right:0;bottom:0}
+.col{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;box-sizing:border-box}
+.hide{display:none!important}
+.cg{font-family:'Cormorant Garamond',serif}
+@keyframes coUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+@keyframes coFade{from{opacity:0}to{opacity:1}}
+@keyframes coZoom{from{opacity:0;transform:scale(.86)}to{opacity:1;transform:scale(1)}}
+@keyframes coFloat{from{transform:translateY(0) rotate(0);opacity:0}15%{opacity:.9}to{transform:translateY(-1000px) rotate(300deg);opacity:0}}
+@keyframes coPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.07)}}
+@keyframes coShine{0%,100%{box-shadow:0 0 0 0 rgba(184,134,11,.5)}50%{box-shadow:0 0 0 14px rgba(184,134,11,0)}}
+a.co-btn{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:0 22px;border-radius:24px;text-decoration:none;font-family:'Jost',sans-serif;font-size:14px;letter-spacing:1px;background:#5A0F1F;color:#fff;min-width:240px}
+button{font-family:'Jost',sans-serif;cursor:pointer}
+.door{transform-style:preserve-3d;-webkit-transform-style:preserve-3d;transition:transform 2s cubic-bezier(.6,.05,.3,1);box-shadow:0 10px 40px rgba(90,15,31,.2);position:absolute;top:0;width:230px;height:820px}
+.face{position:absolute;left:0;top:0;width:230px;height:820px;overflow:hidden;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.back{position:absolute;left:0;top:0;width:230px;height:820px;box-sizing:border-box;border:2px solid #B8860B;background:#FFF6E6;transform:rotateY(180deg);backface-visibility:hidden;-webkit-backface-visibility:hidden;display:flex;align-items:center;justify-content:center}
+.dframe{width:460px;height:820px;box-sizing:border-box;border:2px solid #B8860B;padding:10px;background:#FFFDF6}
+.dinner{width:100%;height:100%;box-sizing:border-box;border:1px solid #B8860B;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;text-align:center;background:#fff}
+</style>
+</head>
+<body>
+<div id="wrap"><div id="stage">
+<div id="petals" class="ab" style="pointer-events:none"></div>
+
+<!-- START -->
+<div id="s-start" class="ab col" style="gap:22px;padding:0 40px">
+  <div style="font-size:13px;letter-spacing:6px;text-transform:uppercase;color:#8A5F00">You are invited</div>
+  <div style="width:250px;height:334px;box-sizing:border-box;border:3px solid #B8860B;border-radius:125px 125px 14px 14px;overflow:hidden;box-shadow:0 10px 34px rgba(184,134,11,.35);animation:coZoom 1s both"><img src="ghibli.jpg" alt="Nishant and Prachi" style="width:100%;height:100%;object-fit:cover;object-position:top;display:block"></div>
+  <div class="cg" style="font-size:46px;font-weight:600;line-height:1.05">Nishant &amp; Prachi</div>
+  <div class="cg" style="font-style:italic;font-size:26px;color:#9A6B00">Sagai · Ring Ceremony</div>
+  <button id="playBtn" aria-label="Play the invitation film" style="min-height:54px;padding:0 44px;border-radius:27px;border:none;background:#5A0F1F;color:#fff;font-size:15px;letter-spacing:3px;text-transform:uppercase;animation:coShine 2s infinite">Play invitation</button>
+  <div style="font-size:12px;letter-spacing:2px;color:#6B2A38">One tap. Sound on for the best experience</div>
+</div>
+
+<!-- VIDEO -->
+<div id="s-video" class="ab hide" style="background:#FFFDF8">
+  <video id="vid" src="invite.mp4" playsinline preload="auto" style="position:absolute;left:0;top:0;width:540px;height:960px;object-fit:cover;display:block"></video>
+  <div id="ribbon" style="position:absolute;left:30px;right:30px;top:646px;height:112px;box-sizing:border-box;background:#FFFDF6;border:2px solid #B8860B;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px">
+    <div class="cg" style="font-size:40px;font-weight:600;color:#5A0F1F;letter-spacing:4px;text-transform:uppercase;line-height:1">Sagai</div>
+    <div class="cg" style="font-style:italic;font-size:26px;color:#9A6B00;line-height:1.1">Ring Ceremony</div>
+  </div>
+</div>
+
+<!-- GATEFOLD -->
+<div id="s-gate" class="hide" style="position:absolute;left:40px;top:70px;width:460px;height:820px;perspective:2200px">
+  <div id="inner" style="position:absolute;left:0;top:0;width:460px;height:820px;background:#fff;box-shadow:0 20px 60px rgba(90,15,31,.25);transition:transform 1.6s ease;transform:scale(.97);visibility:hidden">
+    <div style="width:100%;height:100%;box-sizing:border-box;border:2px solid #B8860B;padding:8px;background:#fff">
+      <div class="col" style="width:100%;height:100%;border:1px solid #B8860B;padding:24px 22px;gap:14px">
+        <div style="font-size:11px;letter-spacing:4px;text-transform:uppercase;color:#8A5F00">With the blessings of our families</div>
+        <div style="width:250px;height:334px;box-sizing:border-box;border:3px solid #B8860B;border-radius:125px 125px 12px 12px;overflow:hidden;box-shadow:0 8px 24px rgba(184,134,11,.35)"><img src="ghibli.jpg" alt="Nishant and Prachi" style="width:100%;height:100%;object-fit:cover;object-position:top;display:block"></div>
+        <div class="cg" style="font-size:34px;letter-spacing:8px;text-transform:uppercase;color:#9A6B00;font-weight:600">Sagai</div>
+        <div class="cg" style="font-size:40px;font-weight:600;line-height:1.05">Nishant &amp; Prachi</div>
+        <div class="cg" style="font-size:22px;font-weight:600;line-height:1.3">22 Nov 2026 · Dinner 7:00 PM</div>
+      </div>
+    </div>
+  </div>
+  <div id="ld" class="door" style="left:0;transform-origin:left center">
+    <div class="face"><div class="dframe" id="dl"></div></div>
+    <div class="back"><svg width="60" height="60" viewBox="0 0 60 60"><path d="M30 4 L40 30 L30 56 L20 30 Z" fill="none" stroke="#B8860B" stroke-width="2"/><circle cx="30" cy="30" r="5" fill="#E0457B"/></svg></div>
+  </div>
+  <div id="rd" class="door" style="right:0;transform-origin:right center">
+    <div class="face"><div class="dframe" id="dr" style="position:absolute;left:-230px;top:0"></div></div>
+    <div class="back"><svg width="60" height="60" viewBox="0 0 60 60"><path d="M30 4 L40 30 L30 56 L20 30 Z" fill="none" stroke="#B8860B" stroke-width="2"/><circle cx="30" cy="30" r="5" fill="#E0457B"/></svg></div>
+  </div>
+</div>
+<template id="doorTpl">
+  <div class="dinner">
+    <div style="font-size:12px;letter-spacing:6px;text-transform:uppercase;color:#8A5F00">With the blessings<br>of our families</div>
+    <svg width="170" height="110" viewBox="0 0 170 110" fill="none" stroke="#B8860B" stroke-width="4"><circle cx="66" cy="62" r="40"/><circle cx="104" cy="62" r="40"/><path d="M85 10 L96 22 L85 34 L74 22 Z" fill="#E0457B" stroke="none"/></svg>
+    <div class="cg" style="font-size:58px;letter-spacing:10px;text-transform:uppercase;color:#9A6B00;font-weight:600">Sagai</div>
+    <div class="cg" style="font-style:italic;font-size:26px">The Ring Ceremony</div>
+    <div class="cg" style="font-size:46px;font-weight:600;line-height:1.05">Nishant<br>&amp; Prachi</div>
+    <div style="font-size:14px;letter-spacing:4px;color:#8A5F00">22 · 11 · 2026</div>
+  </div>
+</template>
+
+<!-- SLIDESHOW -->
+<div id="s-show" class="ab hide">
+  <div style="position:absolute;left:20px;top:20px;right:20px;bottom:20px;border:2px solid #B8860B;background:rgba(255,255,255,.7);pointer-events:none"></div>
+  <div style="position:absolute;left:30px;top:30px;right:30px;bottom:30px;border:1px solid #B8860B;pointer-events:none"></div>
+
+  <div id="a0" class="ab col hide" style="gap:12px;padding:0 50px">
+    <div class="cg" style="font-size:30px;letter-spacing:8px;text-transform:uppercase;color:#9A6B00;font-weight:600;animation:coFade 1s both">Sagai</div>
+    <div style="animation:coUp 1s .3s both"><div class="cg" style="font-size:58px;font-weight:600;line-height:1.05">Nishant Sharma</div><div style="font-size:15px;line-height:1.6;color:#6B2A38">Son of Sh. Sanjay Kumar Sharma<br>Grandson of Sh. Budh Prakash Sharma</div></div>
+    <div class="cg" style="font-style:italic;font-size:40px;color:#D6336C;animation:coPulse 2.4s ease-in-out infinite">&amp;</div>
+    <div style="animation:coUp 1s 1.2s both"><div class="cg" style="font-size:58px;font-weight:600;line-height:1.05">Prachi Sharma</div><div style="font-size:15px;line-height:1.6;color:#6B2A38">Daughter of Sh. Ravinder Sharma<br>Granddaughter of Late Sh. Chand Sharma</div></div>
+  </div>
+
+  <div id="a1" class="ab col hide" style="gap:22px;padding:0 50px">
+    <div style="animation:coUp 1s both"><div style="font-size:13px;letter-spacing:6px;text-transform:uppercase;color:#8A5F00">Save the date</div><div class="cg" style="font-size:150px;font-weight:600;line-height:.95">22</div><div class="cg" style="font-size:38px;letter-spacing:8px;text-transform:uppercase;color:#9A6B00">November 2026</div></div>
+    <div style="font-size:18px;letter-spacing:3px;text-transform:uppercase;color:#8A5F00;animation:coUp 1s 1.2s both">Dinner · 7:00 PM</div>
+    <div style="animation:coUp 1s 2.4s both"><div class="cg" style="font-size:40px;font-weight:600;line-height:1.1">Riviera Kohinoor</div><div style="font-size:15px;line-height:1.6;color:#6B2A38">Kankarkhera, Delhi Highway, Meerut</div></div>
+  </div>
+
+  <div id="a2" class="ab col hide" style="gap:18px;padding:0 50px">
+    <div class="cg" style="font-size:40px;font-weight:600;letter-spacing:4px;text-transform:uppercase;color:#9A6B00;animation:coFade 1s both">Ceremony</div>
+    <div class="cg" style="font-size:34px;line-height:1.5;font-weight:600">
+      <div style="animation:coUp .8s .3s both">Ganesh Puja</div><div style="animation:coUp .8s .9s both">Tilak</div><div style="animation:coUp .8s 1.5s both">Ring Exchange</div><div style="animation:coUp .8s 2.1s both">Blessings &amp; Aarti</div><div style="animation:coUp .8s 2.7s both">Dinner &amp; Celebration</div>
+    </div>
+  </div>
+
+  <div id="a3" class="ab col hide" style="gap:14px;padding:0 50px">
+    <div style="font-size:13px;letter-spacing:5px;text-transform:uppercase;color:#8A5F00;animation:coFade 1s both">With the blessings of</div>
+    <div class="cg" style="font-size:34px;font-weight:600;line-height:1.2;animation:coUp 1s .3s both">Sh. Budh Prakash Sharma</div>
+    <div class="cg" style="font-style:italic;font-size:24px;color:#D6336C;animation:coFade 1s .8s both">In loving memory of Late Sh. Chand Sharma</div>
+    <div style="width:80px;height:2px;background:#B8860B;margin:8px 0;animation:coFade 1s 1.2s both"></div>
+    <div style="font-size:13px;letter-spacing:5px;text-transform:uppercase;color:#8A5F00;animation:coFade 1s 1.4s both">Hosted by</div>
+    <div class="cg" style="font-size:34px;font-weight:600;line-height:1.25;animation:coUp 1s 1.7s both">Sanjay Kumar Sharma<br>Ravinder Sharma</div>
+  </div>
+
+  <div id="a4" class="ab col hide" style="gap:22px;padding:0 50px">
+    <div class="cg" style="font-style:italic;font-size:48px;line-height:1.12;animation:coUp 1.2s both">Your presence will make our joy complete</div>
+    <div style="font-size:13px;letter-spacing:5px;text-transform:uppercase;color:#8A5F00;animation:coFade 1s 1s both">RSVP</div>
+    <div style="display:flex;flex-direction:column;gap:12px;align-items:center;animation:coUp 1s 1.2s both">
+      <a class="co-btn" href="tel:+919870973920">Call 98709 73920</a>
+      <a class="co-btn" href="tel:+919410452263">Call 94104 52263</a>
+      <a class="co-btn" href="https://wa.me/919870973920" style="background:#0B7A4B">WhatsApp RSVP</a>
+    </div>
+    <button id="replayBtn" aria-label="Replay the invitation" style="min-height:44px;padding:0 26px;border-radius:22px;border:1.5px solid #B8860B;background:#fff;color:#5A0F1F;font-size:13px;letter-spacing:3px;text-transform:uppercase;animation:coFade 1s 2s both">Replay</button>
+  </div>
+</div>
+
+<button id="soundBtn" class="hide" aria-label="Turn music and voice on or off" style="position:absolute;right:30px;bottom:30px;min-width:44px;min-height:44px;padding:0 14px;border-radius:22px;border:1px solid #B8860B;background:#fff;color:#5A0F1F;font-size:12px;letter-spacing:2px;text-transform:uppercase;z-index:10">Sound on</button>
+</div></div>
+
+<script>
+(function(){
+var $=function(i){return document.getElementById(i)};
+var stage=$('stage');
+function fit(){var s=Math.min(innerWidth/540,innerHeight/960);stage.style.transform='scale('+s+')'}
+addEventListener('resize',fit);fit();
+
+// petals
+var cols=['#F2859F','#F5A623','#FFD27A','#E0457B','#6BAF7A'],ph='';
+for(var i=0;i<16;i++){var sz=8+(i*5)%9;ph+='<div style="position:absolute;bottom:-30px;left:'+((i*41)%100)+'%;width:'+sz+'px;height:'+(sz*1.5)+'px;border-radius:50% 50% 50% 0;background:'+cols[i%5]+';opacity:0;animation:coFloat '+(10+(i*3)%8)+'s linear '+((i*11)%9)+'s infinite"></div>'}
+$('petals').innerHTML=ph;
+var tpl=$('doorTpl').innerHTML;$('dl').innerHTML=tpl;$('dr').innerHTML=tpl;
+
+var sound=true,ctx=null,master=null,seq=null,timer=null;
+function show(id,on){$(id).classList.toggle('hide',!on)}
+function speak(t){try{if(!sound||!window.speechSynthesis||!t)return;speechSynthesis.cancel();var u=new SpeechSynthesisUtterance(t);u.rate=.85;u.pitch=1;u.volume=1;var v=speechSynthesis.getVoices().filter(function(x){return /en[-_]IN/i.test(x.lang)})[0];if(v)u.voice=v;speechSynthesis.speak(u)}catch(e){}}
+function stopAll(){clearTimeout(timer);clearInterval(seq);try{speechSynthesis.cancel()}catch(e){}try{if(ctx)ctx.close()}catch(e){}ctx=null;master=null}
+function startAudio(){try{
+ var AC=window.AudioContext||window.webkitAudioContext;if(!AC)return;
+ ctx=new AC();master=ctx.createGain();master.gain.value=sound?.16:0;master.connect(ctx.destination);
+ var lp=ctx.createBiquadFilter();lp.type='lowpass';lp.frequency.value=600;var dg=ctx.createGain();dg.gain.value=.12;lp.connect(dg);dg.connect(master);
+ [73.42,110,146.83].forEach(function(f){var o=ctx.createOscillator();o.type='sawtooth';o.frequency.value=f;o.connect(lp);o.start()});
+ var scale=[293.66,329.63,369.99,440,493.88,587.33,659.25],tune=[0,2,4,2,3,2,1,0,4,5,4,3,2,3,1,0],step=0;
+ function tone(fr,du,ty,vo){var o=ctx.createOscillator(),g=ctx.createGain();o.type=ty;o.frequency.value=fr;g.gain.setValueAtTime(vo,ctx.currentTime);g.gain.exponentialRampToValueAtTime(.0001,ctx.currentTime+du);o.connect(g);g.connect(master);o.start();o.stop(ctx.currentTime+du)}
+ seq=setInterval(function(){
+  if(step%4===0){var o=ctx.createOscillator(),g=ctx.createGain();o.type='sine';o.frequency.setValueAtTime(140,ctx.currentTime);o.frequency.exponentialRampToValueAtTime(45,ctx.currentTime+.18);g.gain.setValueAtTime(.9,ctx.currentTime);g.gain.exponentialRampToValueAtTime(.0001,ctx.currentTime+.22);o.connect(g);g.connect(master);o.start();o.stop(ctx.currentTime+.25)}
+  if(step%2===1)tone(1800,.05,'square',.04);
+  if(step%2===0)tone(scale[tune[(step/2)%tune.length]],1.4,'triangle',.25);
+  if(step%8===6)tone(scale[tune[(step/2)%tune.length]]*2,1.8,'sine',.12);
+  step++},280)}catch(e){}}
+
+function scene(n){for(var i=0;i<5;i++){show('a'+i,false)}void stage.offsetWidth;show('a'+n,true)}
+var steps=[
+ {d:900,f:function(){show('s-gate',true);$('inner').style.visibility='visible';$('inner').style.transform='scale(1)';$('ld').style.transform='rotateY(-104deg)';$('rd').style.transform='rotateY(104deg)'},say:'Namaste. You are warmly invited to the Sagai of Nishant and Prachi.'},
+ {d:6500,f:function(){show('s-gate',false);show('s-show',true);scene(0)},say:'Nishant, son of Sanjay Kumar Sharma. And Prachi, daughter of Ravinder Sharma.'},
+ {d:6500,f:function(){scene(1)},say:'On twenty second November, two thousand twenty six. Dinner at seven P M. At Riviera Kohinoor, Kankarkhera, Delhi Highway, Meerut.'},
+ {d:9500,f:function(){scene(2)},say:'Ganesh Puja, Tilak, Ring Exchange, Blessings and Aarti, followed by dinner.'},
+ {d:6500,f:function(){scene(3)},say:'With the blessings of our elders.'},
+ {d:7000,f:function(){scene(4)},say:'Your presence will make our joy complete. We look forward to seeing you.'}];
+function run(i){var s=steps[i];timer=setTimeout(function(){s.f();speak(s.say);if(i<steps.length-1)run(i+1)},s.d)}
+
+function goGate(){clearTimeout(timer);show('s-video',false);show('s-gate',true);$('inner').style.visibility='hidden';$('inner').style.transform='scale(.97)';$('ld').style.transform='rotateY(0)';$('rd').style.transform='rotateY(0)';startAudio();run(0)}
+$('playBtn').onclick=function(){
+ stopAll();show('s-start',false);show('s-video',true);show('s-gate',false);show('s-show',false);$('soundBtn').classList.remove('hide');
+ var r=$('ribbon');r.style.animation='none';void r.offsetWidth;r.style.animation='coFade 1s 4s both';
+ var v=$('vid');v.currentTime=0;var p=v.play();if(p&&p.catch)p.catch(function(){goGate()});
+ try{speechSynthesis.getVoices()}catch(e){}
+};
+$('vid').onended=goGate;
+$('vid').onerror=goGate;
+$('replayBtn').onclick=function(){stopAll();show('s-show',false);show('s-gate',false);show('s-video',false);show('s-start',true);$('soundBtn').classList.add('hide')};
+$('soundBtn').onclick=function(){sound=!sound;this.textContent=sound?'Sound on':'Sound off';var v=$('vid');v.muted=!sound;try{if(master)master.gain.value=sound?.16:0}catch(e){}try{if(!sound)speechSynthesis.cancel()}catch(e){}};
+})();
+</script>
+</body>
+</html>
