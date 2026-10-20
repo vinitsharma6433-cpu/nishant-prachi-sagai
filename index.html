@@ -38,6 +38,18 @@ button{font-family:'Jost',sans-serif;cursor:pointer}
 .back{position:absolute;left:0;top:0;width:230px;height:820px;box-sizing:border-box;border:2px solid #B8860B;background:#FFF6E6;transform:rotateY(180deg);backface-visibility:hidden;-webkit-backface-visibility:hidden;display:flex;align-items:center;justify-content:center}
 .dframe{width:460px;height:820px;box-sizing:border-box;border:2px solid #B8860B;padding:10px;background:#FFFDF6}
 .dinner{width:100%;height:100%;box-sizing:border-box;border:1px solid #B8860B;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;text-align:center;background:#fff}
+
+/* photo lighting animation */
+.ph-wrap{position:relative;width:250px;height:334px;margin:26px 0;animation:coZoom 1s both}
+.ph-orbit{position:absolute;inset:-28px;border-radius:50%;border:1.5px solid transparent;background:linear-gradient(#FFFDF8,#FFFDF8) padding-box,linear-gradient(135deg,rgba(226,169,43,.5),transparent 40%,transparent 60%,rgba(184,134,11,.4)) border-box;animation:phSpin 18s linear infinite;opacity:.7;z-index:0}
+.ph-orbit2{position:absolute;inset:-42px;border-radius:50%;border:1px dashed rgba(184,134,11,.25);animation:phSpin 28s linear infinite reverse;z-index:0}
+.ph-glow{position:absolute;inset:-30px;background:radial-gradient(ellipse at center,rgba(226,169,43,.35) 0%,rgba(226,169,43,.08) 45%,transparent 70%);border-radius:50%;animation:phGlow 3.5s ease-in-out infinite;z-index:0}
+.ph-frame{position:relative;z-index:1;width:250px;height:334px;box-sizing:border-box;border:3px solid #B8860B;border-radius:125px 125px 14px 14px;overflow:hidden;box-shadow:0 0 0 5px rgba(255,243,176,.45),0 14px 40px rgba(184,134,11,.32),0 4px 14px rgba(90,15,31,.12);animation:phFloat 5s ease-in-out infinite}
+.ph-frame::after{content:'';position:absolute;top:0;left:-80%;width:60%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.35),transparent);transform:skewX(-18deg);animation:phSweep 5.5s 1.5s ease-in-out infinite}
+@keyframes phSpin{to{transform:rotate(360deg)}}
+@keyframes phGlow{0%,100%{transform:scale(1);opacity:.7}50%{transform:scale(1.12);opacity:1}}
+@keyframes phFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+@keyframes phSweep{0%,30%{left:-80%}70%,100%{left:130%}}
 </style>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Devanagari:wght@700&display=swap" rel="stylesheet">
 </head>
@@ -55,7 +67,7 @@ button{font-family:'Jost',sans-serif;cursor:pointer}
 </defs></svg>
 <div id="s-start" class="ab col" style="gap:22px;padding:0 40px">
   <div style="font-size:13px;letter-spacing:6px;text-transform:uppercase;color:#8A5F00">You are invited</div>
-  <div style="width:250px;height:334px;box-sizing:border-box;border:3px solid #B8860B;border-radius:125px 125px 14px 14px;overflow:hidden;box-shadow:0 10px 34px rgba(184,134,11,.35);animation:coZoom 1s both"><img src="start.jpg" alt="Nishant and Prachi" style="width:100%;height:100%;object-fit:cover;object-position:top;display:block"></div>
+  <div class="ph-wrap"><div class="ph-orbit2"></div><div class="ph-orbit"></div><div class="ph-glow"></div><div class="ph-frame"><img src="start.jpg" alt="Nishant and Prachi" style="width:100%;height:100%;object-fit:cover;object-position:top;display:block"></div></div>
   <div class="cg" style="font-size:46px;font-weight:600;line-height:1.05">Nishant &amp; Prachi</div>
   <div class="cg" style="font-style:italic;font-size:26px;color:#9A6B00">Sagai · Ring Ceremony</div>
   <button id="playBtn" aria-label="Play the invitation film" style="min-height:54px;padding:0 44px;border-radius:27px;border:none;background:#5A0F1F;color:#fff;font-size:15px;letter-spacing:3px;text-transform:uppercase;animation:coShine 2s infinite">Play invitation</button>
