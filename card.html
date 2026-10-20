@@ -65,6 +65,11 @@ button{font-family:'Jost',sans-serif;cursor:pointer}
   <div class="cg" style="position:absolute;left:0;right:0;top:36px;text-align:center;font-size:20px;letter-spacing:4px;color:#8A5F00;font-weight:700;text-transform:uppercase;text-shadow:0 1px 6px #fff">Shree Ganeshaya Namah</div>
 </div>
 
+<!-- RING -->
+<div id="s-ring" class="ab hide" style="background:#FFFDF8">
+  <video id="ringv" src="ring.mp4" muted playsinline preload="auto" style="position:absolute;left:0;top:0;width:540px;height:960px;object-fit:cover;display:block"></video>
+</div>
+
 <!-- VIDEO -->
 <div id="s-video" class="ab hide" style="background:#FFFDF8">
   <video id="vid" src="invite.mp4?v=2" playsinline preload="auto" style="position:absolute;left:0;top:0;width:540px;height:960px;object-fit:cover;display:block"></video>
@@ -181,36 +186,31 @@ for(var i=0;i<16;i++){var sz=8+(i*5)%9;ph+='<div style="position:absolute;bottom
 $('petals').innerHTML=ph;
 var tpl=$('doorTpl').innerHTML;$('dl').innerHTML=tpl;$('dr').innerHTML=tpl;
 
-var sound=true,ctx=null,master=null,vgain=null,seq=null,timer=null,bufs=[],cur=null;
+var sound=true,ctx=null,master=null,vgain=null,seq=null,timer=null,bufs=[],cur=null,musicRaw=null,musicBuf=null,musicSrc=null,musicWant=false;
+try{fetch('sagai_music.mp3').then(function(r){return r.arrayBuffer()}).then(function(ab){musicRaw=ab}).catch(function(){})}catch(e){}
+function decodeMusic(){try{var go=function(ab){var p=ctx.decodeAudioData(ab.slice(0),function(b){musicBuf=b;if(musicWant)startMusic()},function(){});if(p&&p.catch)p.catch(function(){})};if(musicRaw)go(musicRaw);else fetch('sagai_music.mp3').then(function(r){return r.arrayBuffer()}).then(function(ab){musicRaw=ab;go(ab)}).catch(function(){})}catch(e){}}
+function startMusic(){musicWant=true;try{if(!ctx||!musicBuf||musicSrc)return;musicSrc=ctx.createBufferSource();musicSrc.buffer=musicBuf;musicSrc.connect(master);musicSrc.start(0)}catch(e){}}
 var clips=['v0.mp3','v1.mp3','v2.mp3','v3.mp3','v4.mp3','v5.mp3','v6.mp3'],raw=[];
 // preload voice files early (decoded after the first tap)
 clips.forEach(function(u,i){try{fetch(u).then(function(r){return r.arrayBuffer()}).then(function(ab){raw[i]=ab}).catch(function(){})}catch(e){}});
 function show(id,on){$(id).classList.toggle('hide',!on)}
 function say(i){try{if(!ctx||!bufs[i]||!sound)return;if(cur){try{cur.stop()}catch(e){}}var src=ctx.createBufferSource();src.buffer=bufs[i];src.connect(vgain);src.start(0);cur=src}catch(e){}}
-function stopAll(){clearTimeout(timer);clearInterval(seq);try{if(cur)cur.stop()}catch(e){}cur=null;try{if(ctx)ctx.close()}catch(e){}ctx=null;master=null;vgain=null;bufs=[]}
+function stopAll(){musicWant=false;musicBuf=null;try{if(musicSrc)musicSrc.stop()}catch(e){}musicSrc=null;clearTimeout(timer);clearInterval(seq);try{if(cur)cur.stop()}catch(e){}cur=null;try{if(ctx)ctx.close()}catch(e){}ctx=null;master=null;vgain=null;bufs=[]}
 function decodeAll(){clips.forEach(function(u,i){var go=function(ab){try{var p=ctx.decodeAudioData(ab.slice(0),function(b){bufs[i]=b},function(){});if(p&&p.catch)p.catch(function(){})}catch(e){}};if(raw[i])go(raw[i]);else{fetch(u).then(function(r){return r.arrayBuffer()}).then(function(ab){raw[i]=ab;go(ab)}).catch(function(){})}})}
 function startAudio(){try{
  var AC=window.AudioContext||window.webkitAudioContext;if(!AC)return;
  ctx=new AC();if(ctx.resume)ctx.resume();
- master=ctx.createGain();master.gain.value=sound?.11:0;master.connect(ctx.destination);
+ master=ctx.createGain();master.gain.value=sound?.34:0;master.connect(ctx.destination);
  vgain=ctx.createGain();vgain.gain.value=sound?1:0;vgain.connect(ctx.destination);
  decodeAll();
- var lp=ctx.createBiquadFilter();lp.type='lowpass';lp.frequency.value=600;var dg=ctx.createGain();dg.gain.value=.12;lp.connect(dg);dg.connect(master);
- [73.42,110,146.83].forEach(function(f){var o=ctx.createOscillator();o.type='sawtooth';o.frequency.value=f;o.connect(lp);o.start()});
- var scale=[293.66,329.63,369.99,440,493.88,587.33,659.25],tune=[0,2,4,2,3,2,1,0,4,5,4,3,2,3,1,0],step=0;
- function tone(fr,du,ty,vo){var o=ctx.createOscillator(),g=ctx.createGain();o.type=ty;o.frequency.value=fr;g.gain.setValueAtTime(vo,ctx.currentTime);g.gain.exponentialRampToValueAtTime(.0001,ctx.currentTime+du);o.connect(g);g.connect(master);o.start();o.stop(ctx.currentTime+du)}
- seq=setInterval(function(){
-  if(step%4===0){var o=ctx.createOscillator(),g=ctx.createGain();o.type='sine';o.frequency.setValueAtTime(140,ctx.currentTime);o.frequency.exponentialRampToValueAtTime(45,ctx.currentTime+.18);g.gain.setValueAtTime(.9,ctx.currentTime);g.gain.exponentialRampToValueAtTime(.0001,ctx.currentTime+.22);o.connect(g);g.connect(master);o.start();o.stop(ctx.currentTime+.25)}
-  if(step%2===1)tone(1800,.05,'square',.04);
-  if(step%2===0)tone(scale[tune[(step/2)%tune.length]],1.4,'triangle',.25);
-  if(step%8===6)tone(scale[tune[(step/2)%tune.length]]*2,1.8,'sine',.12);
-  step++},280)}catch(e){}}
+ decodeMusic();}catch(e){}}
 
 function scene(n){for(var i=0;i<6;i++){show('a'+i,false)}void stage.offsetWidth;show('a'+n,true);try{var dv=$('dv');if(n==1){dv.currentTime=0;var pp=dv.play();if(pp&&pp.catch)pp.catch(function(){})}else{dv.pause()}}catch(e){}}
 // each step: wait d ms -> action -> voice clip v. Next step waits for the clip + a short pause.
 var steps=[
  {d:900,v:0,f:function(){show('s-gate',true);$('inner').style.visibility='visible';$('inner').style.transform='scale(1)';$('ld').style.transform='rotateY(-104deg)';$('rd').style.transform='rotateY(104deg)'}},
- {d:7600,v:1,f:function(){show('s-gate',false);show('s-show',true);scene(0)}},
+ {d:9600,v:-1,f:function(){show('s-gate',false);show('s-ring',true);try{var rv=$('ringv');rv.currentTime=0;var rp=rv.play();if(rp&&rp.catch)rp.catch(function(){})}catch(e){}}},
+ {d:4700,v:1,f:function(){show('s-ring',false);try{$('ringv').pause()}catch(e){};show('s-show',true);scene(0)}},
  {d:15800,v:2,f:function(){scene(1)}},
  {d:7200,v:6,f:function(){scene(5)}},
  {d:6500,v:3,f:function(){scene(2)}},
@@ -225,7 +225,7 @@ function beginMain(){
  if(introDone)return;introDone=true;
  var iv=$('introv');try{iv.pause()}catch(e){}
  show('s-intro',false);show('s-video',true);
- try{if(master&&sound)master.gain.value=.11}catch(e){}
+ try{if(master&&sound)master.gain.value=.34;startMusic()}catch(e){}
  var r=$('ribbon');r.style.animation='none';void r.offsetWidth;r.style.animation='coFade 1s 4s both';
  var v=$('vid');v.muted=true;v.currentTime=0;var p=v.play();if(p&&p.catch)p.catch(function(){goGate()});
  setTimeout(function(){if(!gone&&v.paused)goGate()},2500);
@@ -248,8 +248,8 @@ $('introv').onended=beginMain;
 $('introv').onerror=beginMain;
 $('vid').onended=goGate;
 $('vid').onerror=goGate;
-$('replayBtn').onclick=function(){stopAll();introDone=true;show('s-intro',false);try{$('introv').pause()}catch(e){}gone=false;show('s-show',false);show('s-gate',false);show('s-video',false);show('s-start',true);$('soundBtn').classList.add('hide')};
-$('soundBtn').onclick=function(){sound=!sound;this.textContent=sound?'Sound on':'Sound off';try{if(master)master.gain.value=(sound&&introDone)?.11:0;if(vgain)vgain.gain.value=sound?1:0;$('introv').muted=!sound}catch(e){}};
+$('replayBtn').onclick=function(){stopAll();introDone=true;show('s-intro',false);show('s-ring',false);try{$('ringv').pause()}catch(e){}try{$('introv').pause()}catch(e){}gone=false;show('s-show',false);show('s-gate',false);show('s-video',false);show('s-start',true);$('soundBtn').classList.add('hide')};
+$('soundBtn').onclick=function(){sound=!sound;this.textContent=sound?'Sound on':'Sound off';try{if(master)master.gain.value=(sound&&introDone)?.34:0;if(vgain)vgain.gain.value=sound?1:0;$('introv').muted=!sound}catch(e){}};
 document.addEventListener('visibilitychange',function(){try{if(ctx){if(document.hidden)ctx.suspend();else ctx.resume()}}catch(e){}});
 if(window.visualViewport)visualViewport.addEventListener('resize',fit);
 })();
