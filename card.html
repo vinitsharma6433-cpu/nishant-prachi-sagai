@@ -39,6 +39,7 @@ button{font-family:'Jost',sans-serif;cursor:pointer}
 .dframe{width:460px;height:820px;box-sizing:border-box;border:2px solid #B8860B;padding:10px;background:#FFFDF6}
 .dinner{width:100%;height:100%;box-sizing:border-box;border:1px solid #B8860B;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;text-align:center;background:#fff}
 </style>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Devanagari:wght@700&display=swap" rel="stylesheet">
 </head>
 <body>
 <div id="wrap"><div id="stage">
@@ -52,6 +53,16 @@ button{font-family:'Jost',sans-serif;cursor:pointer}
   <div class="cg" style="font-style:italic;font-size:26px;color:#9A6B00">Sagai · Ring Ceremony</div>
   <button id="playBtn" aria-label="Play the invitation film" style="min-height:54px;padding:0 44px;border-radius:27px;border:none;background:#5A0F1F;color:#fff;font-size:15px;letter-spacing:3px;text-transform:uppercase;animation:coShine 2s infinite">Play invitation</button>
   <div style="font-size:12px;letter-spacing:2px;color:#6B2A38">One tap. Sound on for the best experience</div>
+</div>
+
+<!-- INTRO -->
+<div id="s-intro" class="ab hide" style="background:#FFFDF8">
+  <video id="introv" src="intro.mp4" playsinline preload="auto" style="position:absolute;left:0;top:0;width:540px;height:960px;object-fit:cover;display:block"></video>
+  <div style="position:absolute;left:24px;right:24px;top:742px;padding:12px 10px 14px;box-sizing:border-box;background:rgba(255,251,240,.88);border:2px solid #B8860B;border-radius:18px;text-align:center;font-family:'Noto Serif Devanagari','Mukta','Nirmala UI',serif;color:#5A0F1F;font-weight:700;line-height:1.55">
+    <div id="mt0" style="font-size:22px;opacity:0;transition:opacity 1s">&#2404; &#2357;&#2367;&#2328;&#2381;&#2344; &#2361;&#2352;&#2339; &#2350;&#2306;&#2327;&#2354; &#2325;&#2352;&#2339;, &#2327;&#2339;&#2344;&#2366;&#2351;&#2325; &#2327;&#2339;&#2352;&#2366;&#2332; &#2404;</div>
+    <div id="mt1" style="font-size:22px;opacity:0;transition:opacity 1s">&#2352;&#2367;&#2342;&#2381;&#2343;&#2367; &#2360;&#2367;&#2342;&#2381;&#2343;&#2367; &#2360;&#2361;&#2367;&#2340; &#2346;&#2343;&#2366;&#2352;&#2332;&#2379;, &#2350;&#2381;&#2361;&#2366;&#2352;&#2366; &#2346;&#2370;&#2352;&#2339; &#2325;&#2352; &#2332;&#2379; &#2325;&#2366;&#2332; &#2404;&#2404;</div>
+  </div>
+  <div class="cg" style="position:absolute;left:0;right:0;top:36px;text-align:center;font-size:20px;letter-spacing:4px;color:#8A5F00;font-weight:700;text-transform:uppercase;text-shadow:0 1px 6px #fff">Shree Ganeshaya Namah</div>
 </div>
 
 <!-- VIDEO -->
@@ -205,18 +216,36 @@ function run(i){var s=steps[i];timer=setTimeout(function(){s.f();say(s.v);if(i<s
 
 var gone=false;
 function goGate(){if(gone)return;gone=true;clearTimeout(timer);show('s-video',false);show('s-gate',true);$('inner').style.visibility='hidden';$('inner').style.transform='scale(.97)';$('ld').style.transform='rotateY(0)';$('rd').style.transform='rotateY(0)';run(0)}
-$('playBtn').onclick=function(){
- stopAll();gone=false;show('s-start',false);show('s-video',true);show('s-gate',false);show('s-show',false);$('soundBtn').classList.remove('hide');
- startAudio();
+var introDone=false;
+function beginMain(){
+ if(introDone)return;introDone=true;
+ var iv=$('introv');try{iv.pause()}catch(e){}
+ show('s-intro',false);show('s-video',true);
+ try{if(master&&sound)master.gain.value=.11}catch(e){}
  var r=$('ribbon');r.style.animation='none';void r.offsetWidth;r.style.animation='coFade 1s 4s both';
  var v=$('vid');v.muted=true;v.currentTime=0;var p=v.play();if(p&&p.catch)p.catch(function(){goGate()});
  setTimeout(function(){if(!gone&&v.paused)goGate()},2500);
  setTimeout(function(){if(!gone)goGate()},14000);
+}
+$('playBtn').onclick=function(){
+ stopAll();gone=false;introDone=false;show('s-start',false);show('s-video',false);show('s-gate',false);show('s-show',false);show('s-intro',true);$('soundBtn').classList.remove('hide');
+ startAudio();
+ try{if(master)master.gain.value=0}catch(e){}
+ $('mt0').style.opacity=0;$('mt1').style.opacity=0;
+ setTimeout(function(){$('mt0').style.opacity=1},800);
+ setTimeout(function(){$('mt1').style.opacity=1},4900);
+ var iv=$('introv');iv.muted=!sound;iv.currentTime=0;
+ var p=iv.play();
+ if(p&&p.catch)p.catch(function(){iv.muted=true;var q=iv.play();if(q&&q.catch)q.catch(function(){beginMain()})});
+ setTimeout(function(){if(!introDone&&iv.paused)beginMain()},3000);
+ setTimeout(beginMain,11500);
 };
+$('introv').onended=beginMain;
+$('introv').onerror=beginMain;
 $('vid').onended=goGate;
 $('vid').onerror=goGate;
-$('replayBtn').onclick=function(){stopAll();gone=false;show('s-show',false);show('s-gate',false);show('s-video',false);show('s-start',true);$('soundBtn').classList.add('hide')};
-$('soundBtn').onclick=function(){sound=!sound;this.textContent=sound?'Sound on':'Sound off';try{if(master)master.gain.value=sound?.11:0;if(vgain)vgain.gain.value=sound?1:0}catch(e){}};
+$('replayBtn').onclick=function(){stopAll();introDone=true;show('s-intro',false);try{$('introv').pause()}catch(e){}gone=false;show('s-show',false);show('s-gate',false);show('s-video',false);show('s-start',true);$('soundBtn').classList.add('hide')};
+$('soundBtn').onclick=function(){sound=!sound;this.textContent=sound?'Sound on':'Sound off';try{if(master)master.gain.value=(sound&&introDone)?.11:0;if(vgain)vgain.gain.value=sound?1:0;$('introv').muted=!sound}catch(e){}};
 document.addEventListener('visibilitychange',function(){try{if(ctx){if(document.hidden)ctx.suspend();else ctx.resume()}}catch(e){}});
 if(window.visualViewport)visualViewport.addEventListener('resize',fit);
 })();
