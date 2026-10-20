@@ -194,7 +194,7 @@ var clips=['v0.mp3','v1.mp3','v2.mp3','v3.mp3','v4.mp3','v5.mp3','v6.mp3'],raw=[
 // preload voice files early (decoded after the first tap)
 clips.forEach(function(u,i){try{fetch(u).then(function(r){return r.arrayBuffer()}).then(function(ab){raw[i]=ab}).catch(function(){})}catch(e){}});
 function show(id,on){$(id).classList.toggle('hide',!on)}
-function say(i){try{if(!ctx||!bufs[i]||!sound)return;if(cur){try{cur.stop()}catch(e){}}var src=ctx.createBufferSource();src.buffer=bufs[i];src.connect(vgain);src.start(0);cur=src}catch(e){}}
+function say(i){return;try{if(!ctx||!bufs[i]||!sound)return;if(cur){try{cur.stop()}catch(e){}}var src=ctx.createBufferSource();src.buffer=bufs[i];src.connect(vgain);src.start(0);cur=src}catch(e){}}
 function stopAll(){clearTimeout(mgTmr);mgLevel=0;musicWant=false;musicBuf=null;try{if(musicSrc)musicSrc.stop()}catch(e){}musicSrc=null;clearTimeout(timer);clearInterval(seq);try{if(cur)cur.stop()}catch(e){}cur=null;try{if(ctx)ctx.close()}catch(e){}ctx=null;master=null;vgain=null;bufs=[]}
 function decodeAll(){clips.forEach(function(u,i){var go=function(ab){try{var p=ctx.decodeAudioData(ab.slice(0),function(b){bufs[i]=b},function(){});if(p&&p.catch)p.catch(function(){})}catch(e){}};if(raw[i])go(raw[i]);else{fetch(u).then(function(r){return r.arrayBuffer()}).then(function(ab){raw[i]=ab;go(ab)}).catch(function(){})}})}
 function startAudio(){try{
@@ -225,7 +225,7 @@ function beginMain(){
  if(introDone)return;introDone=true;
  var iv=$('introv');try{iv.pause()}catch(e){}
  show('s-intro',false);show('s-video',true);
- try{mgLevel=.8;if(master&&sound)master.gain.value=.8;startMusic();clearTimeout(mgTmr);mgTmr=setTimeout(function(){mgLevel=.16;try{if(master&&sound)master.gain.setTargetAtTime(.16,ctx.currentTime,.9)}catch(e){}},21500)}catch(e){}
+ try{mgLevel=.5;if(master&&sound)master.gain.value=.5;startMusic()}catch(e){}
  var r=$('ribbon');r.style.animation='none';void r.offsetWidth;r.style.animation='coFade 1s 4s both';
  var v=$('vid');v.muted=true;v.currentTime=0;var p=v.play();if(p&&p.catch)p.catch(function(){goGate()});
  setTimeout(function(){if(!gone&&v.paused)goGate()},2500);
