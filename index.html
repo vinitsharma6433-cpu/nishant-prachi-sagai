@@ -156,13 +156,20 @@ for(var i=0;i<16;i++){var sz=8+(i*5)%9;ph+='<div style="position:absolute;bottom
 $('petals').innerHTML=ph;
 var tpl=$('doorTpl').innerHTML;$('dl').innerHTML=tpl;$('dr').innerHTML=tpl;
 
-var sound=true,ctx=null,master=null,seq=null,timer=null;
+var sound=true,ctx=null,master=null,vgain=null,seq=null,timer=null,bufs=[],cur=null;
+var clips=['v0.mp3','v1.mp3','v2.mp3','v3.mp3','v4.mp3','v5.mp3'],raw=[];
+// preload voice files early (decoded after the first tap)
+clips.forEach(function(u,i){try{fetch(u).then(function(r){return r.arrayBuffer()}).then(function(ab){raw[i]=ab}).catch(function(){})}catch(e){}});
 function show(id,on){$(id).classList.toggle('hide',!on)}
-function speak(t){try{if(!sound||!window.speechSynthesis||!t)return;speechSynthesis.cancel();var u=new SpeechSynthesisUtterance(t);u.rate=.85;u.pitch=1;u.volume=1;var v=speechSynthesis.getVoices().filter(function(x){return /en[-_]IN/i.test(x.lang)})[0];if(v)u.voice=v;speechSynthesis.speak(u)}catch(e){}}
-function stopAll(){clearTimeout(timer);clearInterval(seq);try{speechSynthesis.cancel()}catch(e){}try{if(ctx)ctx.close()}catch(e){}ctx=null;master=null}
+function say(i){try{if(!ctx||!bufs[i]||!sound)return;if(cur){try{cur.stop()}catch(e){}}var src=ctx.createBufferSource();src.buffer=bufs[i];src.connect(vgain);src.start(0);cur=src}catch(e){}}
+function stopAll(){clearTimeout(timer);clearInterval(seq);try{if(cur)cur.stop()}catch(e){}cur=null;try{if(ctx)ctx.close()}catch(e){}ctx=null;master=null;vgain=null;bufs=[]}
+function decodeAll(){clips.forEach(function(u,i){var go=function(ab){try{var p=ctx.decodeAudioData(ab.slice(0),function(b){bufs[i]=b},function(){});if(p&&p.catch)p.catch(function(){})}catch(e){}};if(raw[i])go(raw[i]);else{fetch(u).then(function(r){return r.arrayBuffer()}).then(function(ab){raw[i]=ab;go(ab)}).catch(function(){})}})}
 function startAudio(){try{
  var AC=window.AudioContext||window.webkitAudioContext;if(!AC)return;
- ctx=new AC();master=ctx.createGain();master.gain.value=sound?.16:0;master.connect(ctx.destination);
+ ctx=new AC();if(ctx.resume)ctx.resume();
+ master=ctx.createGain();master.gain.value=sound?.11:0;master.connect(ctx.destination);
+ vgain=ctx.createGain();vgain.gain.value=sound?1:0;vgain.connect(ctx.destination);
+ decodeAll();
  var lp=ctx.createBiquadFilter();lp.type='lowpass';lp.frequency.value=600;var dg=ctx.createGain();dg.gain.value=.12;lp.connect(dg);dg.connect(master);
  [73.42,110,146.83].forEach(function(f){var o=ctx.createOscillator();o.type='sawtooth';o.frequency.value=f;o.connect(lp);o.start()});
  var scale=[293.66,329.63,369.99,440,493.88,587.33,659.25],tune=[0,2,4,2,3,2,1,0,4,5,4,3,2,3,1,0],step=0;
@@ -175,26 +182,32 @@ function startAudio(){try{
   step++},280)}catch(e){}}
 
 function scene(n){for(var i=0;i<5;i++){show('a'+i,false)}void stage.offsetWidth;show('a'+n,true)}
+// each step: wait d ms -> action -> voice clip v. Next step waits for the clip + a short pause.
 var steps=[
- {d:900,f:function(){show('s-gate',true);$('inner').style.visibility='visible';$('inner').style.transform='scale(1)';$('ld').style.transform='rotateY(-104deg)';$('rd').style.transform='rotateY(104deg)'},say:'Namaste. You are warmly invited to the Sagai of Nishant and Prachi.'},
- {d:6500,f:function(){show('s-gate',false);show('s-show',true);scene(0)},say:'Nishant, son of Sanjay Kumar Sharma. And Prachi, daughter of Ravinder Sharma.'},
- {d:6500,f:function(){scene(1)},say:'On twenty second November, two thousand twenty six. Dinner at seven P M. At Riviera Kohinoor, Kankarkhera, Delhi Highway, Meerut.'},
- {d:9500,f:function(){scene(2)},say:'Ganesh Puja, Tilak, Ring Exchange, Blessings and Aarti, followed by dinner.'},
- {d:6500,f:function(){scene(3)},say:'With the blessings of our elders.'},
- {d:7000,f:function(){scene(4)},say:'Your presence will make our joy complete. We look forward to seeing you.'}];
-function run(i){var s=steps[i];timer=setTimeout(function(){s.f();speak(s.say);if(i<steps.length-1)run(i+1)},s.d)}
+ {d:900,v:0,f:function(){show('s-gate',true);$('inner').style.visibility='visible';$('inner').style.transform='scale(1)';$('ld').style.transform='rotateY(-104deg)';$('rd').style.transform='rotateY(104deg)'}},
+ {d:6200,v:1,f:function(){show('s-gate',false);show('s-show',true);scene(0)}},
+ {d:7400,v:2,f:function(){scene(1)}},
+ {d:10600,v:3,f:function(){scene(2)}},
+ {d:7000,v:4,f:function(){scene(3)}},
+ {d:6200,v:5,f:function(){scene(4)}}];
+function run(i){var s=steps[i];timer=setTimeout(function(){s.f();say(s.v);if(i<steps.length-1)run(i+1)},s.d)}
 
-function goGate(){clearTimeout(timer);show('s-video',false);show('s-gate',true);$('inner').style.visibility='hidden';$('inner').style.transform='scale(.97)';$('ld').style.transform='rotateY(0)';$('rd').style.transform='rotateY(0)';startAudio();run(0)}
+var gone=false;
+function goGate(){if(gone)return;gone=true;clearTimeout(timer);show('s-video',false);show('s-gate',true);$('inner').style.visibility='hidden';$('inner').style.transform='scale(.97)';$('ld').style.transform='rotateY(0)';$('rd').style.transform='rotateY(0)';run(0)}
 $('playBtn').onclick=function(){
- stopAll();show('s-start',false);show('s-video',true);show('s-gate',false);show('s-show',false);$('soundBtn').classList.remove('hide');
+ stopAll();gone=false;show('s-start',false);show('s-video',true);show('s-gate',false);show('s-show',false);$('soundBtn').classList.remove('hide');
+ startAudio();
  var r=$('ribbon');r.style.animation='none';void r.offsetWidth;r.style.animation='coFade 1s 4s both';
- var v=$('vid');v.currentTime=0;var p=v.play();if(p&&p.catch)p.catch(function(){goGate()});
- try{speechSynthesis.getVoices()}catch(e){}
+ var v=$('vid');v.muted=true;v.currentTime=0;var p=v.play();if(p&&p.catch)p.catch(function(){goGate()});
+ setTimeout(function(){if(!gone&&v.paused)goGate()},2500);
+ setTimeout(function(){if(!gone)goGate()},14000);
 };
 $('vid').onended=goGate;
 $('vid').onerror=goGate;
-$('replayBtn').onclick=function(){stopAll();show('s-show',false);show('s-gate',false);show('s-video',false);show('s-start',true);$('soundBtn').classList.add('hide')};
-$('soundBtn').onclick=function(){sound=!sound;this.textContent=sound?'Sound on':'Sound off';var v=$('vid');v.muted=!sound;try{if(master)master.gain.value=sound?.16:0}catch(e){}try{if(!sound)speechSynthesis.cancel()}catch(e){}};
+$('replayBtn').onclick=function(){stopAll();gone=false;show('s-show',false);show('s-gate',false);show('s-video',false);show('s-start',true);$('soundBtn').classList.add('hide')};
+$('soundBtn').onclick=function(){sound=!sound;this.textContent=sound?'Sound on':'Sound off';try{if(master)master.gain.value=sound?.11:0;if(vgain)vgain.gain.value=sound?1:0}catch(e){}};
+document.addEventListener('visibilitychange',function(){try{if(ctx){if(document.hidden)ctx.suspend();else ctx.resume()}}catch(e){}});
+if(window.visualViewport)visualViewport.addEventListener('resize',fit);
 })();
 </script>
 </body>
