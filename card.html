@@ -365,5 +365,34 @@ document.addEventListener('visibilitychange',function(){try{if(ctx){if(document.
 if(window.visualViewport)visualViewport.addEventListener('resize',fit);
 })();
 </script>
+<!-- SAGAI MAGIC EFFECTS -->
+<canvas id="magicFX" style="position:fixed;inset:0;pointer-events:none;z-index:9999"></canvas>
+<script>
+(function(){
+  var cv=document.getElementById('magicFX'),cx=cv.getContext('2d'),W,H;
+  function rs(){W=cv.width=innerWidth;H=cv.height=innerHeight}rs();addEventListener('resize',rs);
+  var P=[],sparks=[];
+  var cols=['#e8a0a8','#d4af37','#f2c1c7','#c2185b'];
+  function mkP(y){return{x:Math.random()*W,y:y||-20,s:6+Math.random()*10,vy:.7+Math.random()*1.3,vx:(Math.random()-.5)*.5,r:Math.random()*6.28,vr:(Math.random()-.5)*.04,c:cols[Math.random()*4|0]}}
+  for(var i=0;i<28;i++){var p=mkP();p.y=Math.random()*H;P.push(p)}
+  function sparkle(x,y){for(var i=0;i<3;i++)sparks.push({x:x,y:y,s:2+Math.random()*4,vx:(Math.random()-.5)*1.6,vy:-Math.random()*1.8,l:1,c:Math.random()<.5?'#d4af37':'#fff'})}
+  function burst(x,y){for(var i=0;i<16;i++){var a=Math.random()*6.28,v=2+Math.random()*3.5;sparks.push({x:x,y:y,s:3+Math.random()*5,vx:Math.cos(a)*v,vy:Math.sin(a)*v-1,l:1.4,heart:true,c:Math.random()<.5?'#c2185b':'#d4af37'})}}
+  addEventListener('pointerdown',function(e){burst(e.clientX,e.clientY)});
+  addEventListener('pointermove',function(e){sparkle(e.clientX,e.clientY)});
+  (function loop(){
+    cx.clearRect(0,0,W,H);
+    P.forEach(function(p){p.y+=p.vy;p.x+=p.vx+Math.sin(p.r+=.02)*.4;p.r+=p.vr;
+      if(p.y>H+30){var n=mkP();for(var k in n)p[k]=n[k]}
+      cx.save();cx.translate(p.x,p.y);cx.rotate(p.r);cx.globalAlpha=.85;cx.fillStyle=p.c;
+      cx.beginPath();cx.ellipse(0,0,p.s,p.s*.55,0,0,6.29);cx.fill();cx.restore()});
+    for(var i=sparks.length-1;i>=0;i--){var s=sparks[i];s.x+=s.vx;s.y+=s.vy;s.vy+=.04;s.l-=.02;
+      if(s.l<=0){sparks.splice(i,1);continue}
+      cx.save();cx.translate(s.x,s.y);cx.globalAlpha=Math.min(1,s.l);cx.fillStyle=s.c;
+      if(s.heart){cx.rotate(Math.sin(Date.now()/200)*.2);cx.font=s.s*2.4+'px serif';cx.fillText('❤',-s.s,s.s)}
+      else{cx.beginPath();cx.arc(0,0,s.s*s.l,0,6.29);cx.fill()}
+      cx.restore()}
+    requestAnimationFrame(loop)})();
+})();
+</script>
 </body>
 </html>
