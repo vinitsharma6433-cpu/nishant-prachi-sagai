@@ -402,7 +402,7 @@ function beginMain(){
  if(introDone)return;introDone=true;
  var iv=$('introv');try{iv.pause()}catch(e){}
  show('s-intro',false);show('s-video',true);
- try{mgLevel=.5;if(master&&sound)master.gain.value=.5;startMusic()}catch(e){}
+ try{mgLevel=.8;if(master&&sound)master.gain.value=.8;startMusic()}catch(e){}
  var r=$('ribbon');r.style.animation='none';void r.offsetWidth;r.style.animation='coFade 1s 4s both';
  var v=$('vid');v.muted=true;v.currentTime=0;var p=v.play();if(p&&p.catch)p.catch(function(){goGate()});
  setTimeout(function(){if(!gone&&v.paused)goGate()},2500);
