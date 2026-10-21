@@ -50,6 +50,13 @@ button{font-family:'Jost',sans-serif;cursor:pointer}
 @keyframes phGlow{0%,100%{transform:scale(1);opacity:.7}50%{transform:scale(1.12);opacity:1}}
 @keyframes phFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
 @keyframes phSweep{0%,30%{left:-80%}70%,100%{left:130%}}
+
+/* ring dance */
+.rd-wrap{position:absolute;left:0;right:0;top:120px;display:flex;justify-content:center;pointer-events:none}
+.rd-ring{animation:rdDance 3.2s ease-in-out infinite;transform-origin:50% 60%}
+.rd-glow{position:absolute;top:10px;width:230px;height:150px;border-radius:50%;background:radial-gradient(ellipse at center,rgba(255,111,177,.28),rgba(226,169,43,.12) 45%,transparent 70%);animation:rdGlow 3.2s ease-in-out infinite}
+@keyframes rdDance{0%,100%{transform:translateY(0) rotate(-8deg) scale(1)}25%{transform:translateY(-14px) rotate(0deg) scale(1.06)}50%{transform:translateY(0) rotate(8deg) scale(1)}75%{transform:translateY(-8px) rotate(0deg) scale(1.03)}}
+@keyframes rdGlow{0%,100%{opacity:.6;transform:scale(1)}50%{opacity:1;transform:scale(1.15)}}
 </style>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Devanagari:wght@700&display=swap" rel="stylesheet">
 </head>
@@ -251,6 +258,37 @@ button{font-family:'Jost',sans-serif;cursor:pointer}
   </div>
 
   <div id="a2" class="ab col hide" style="gap:18px;padding:0 50px">
+    <div class="rd-wrap"><div class="rd-glow"></div><div class="rd-ring"><svg width="230" height="150" viewBox="0 6 240 160" style="overflow:visible;filter:drop-shadow(0 4px 6px rgba(120,70,0,.25))">
+<circle cx="88" cy="92" r="50" fill="none" stroke="#7a4d06" stroke-width="15" opacity=".25" transform="translate(2 3)"/>
+<circle cx="88" cy="92" r="50" fill="none" stroke="url(#gb)" stroke-width="13"/>
+<circle cx="88" cy="92" r="43.5" fill="none" stroke="url(#gi)" stroke-width="1.6" opacity=".7"/>
+<circle cx="88" cy="92" r="56.2" fill="none" stroke="#fff3b8" stroke-width="1.4" opacity=".8"/>
+<path d="M48 62 A50 50 0 0 1 80 43" fill="none" stroke="#fffbe0" stroke-width="3" stroke-linecap="round" opacity=".9"/><circle cx="152" cy="92" r="50" fill="none" stroke="#7a4d06" stroke-width="15" opacity=".25" transform="translate(2 3)"/>
+<circle cx="152" cy="92" r="50" fill="none" stroke="url(#gb)" stroke-width="13"/>
+<circle cx="152" cy="92" r="43.5" fill="none" stroke="url(#gi)" stroke-width="1.6" opacity=".7"/>
+<circle cx="152" cy="92" r="56.2" fill="none" stroke="#fff3b8" stroke-width="1.4" opacity=".8"/>
+<path d="M112 62 A50 50 0 0 1 144 43" fill="none" stroke="#fffbe0" stroke-width="3" stroke-linecap="round" opacity=".9"/>
+<g clip-path="url(#cl)"><circle cx="88" cy="92" r="50" fill="none" stroke="#7a4d06" stroke-width="15" opacity=".25" transform="translate(2 3)"/>
+<circle cx="88" cy="92" r="50" fill="none" stroke="url(#gb)" stroke-width="13"/>
+<circle cx="88" cy="92" r="43.5" fill="none" stroke="url(#gi)" stroke-width="1.6" opacity=".7"/>
+<circle cx="88" cy="92" r="56.2" fill="none" stroke="#fff3b8" stroke-width="1.4" opacity=".8"/>
+<path d="M48 62 A50 50 0 0 1 80 43" fill="none" stroke="#fffbe0" stroke-width="3" stroke-linecap="round" opacity=".9"/></g>
+<g stroke="#A81265" stroke-width="1.2" stroke-linejoin="round">
+<polygon points="77,14 99,14 110,30 66,30" fill="url(#pc)"/>
+<polygon points="66,30 110,30 88,48" fill="url(#pp)"/>
+<polyline points="77,14 82,30 88,48 94,30 99,14" fill="none"/>
+<polyline points="72,22 104,22" fill="none" opacity=".5"/></g>
+<polygon points="77,14 87,14 82,30 72,30" fill="#fff" opacity=".6"/>
+<path d="M70 31 L74 44 M106 31 L102 44" stroke="url(#gb)" stroke-width="3" stroke-linecap="round"/><g stroke="#A81265" stroke-width="1.2" stroke-linejoin="round">
+<polygon points="141,14 163,14 174,30 130,30" fill="url(#pc)"/>
+<polygon points="130,30 174,30 152,48" fill="url(#pp)"/>
+<polyline points="141,14 146,30 152,48 158,30 163,14" fill="none"/>
+<polyline points="136,22 168,22" fill="none" opacity=".5"/></g>
+<polygon points="141,14 151,14 146,30 136,30" fill="#fff" opacity=".6"/>
+<path d="M134 31 L138 44 M170 31 L166 44" stroke="url(#gb)" stroke-width="3" stroke-linecap="round"/>
+<path transform="translate(110 10)" d="M0 -8Q2 -2 8 0Q2 2 0 8Q-2 2 -8 0Q-2 -2 0 -8Z" fill="#fff" stroke="#E2A92B" stroke-width="1" opacity="1"/><path transform="translate(176 6)" d="M0 -6Q2 -2 6 0Q2 2 0 6Q-2 2 -6 0Q-2 -2 0 -6Z" fill="#fff" stroke="#E2A92B" stroke-width="1" opacity="1"/><path transform="translate(60 22)" d="M0 -5Q2 -2 5 0Q2 2 0 5Q-2 2 -5 0Q-2 -2 0 -5Z" fill="#fff" stroke="#E2A92B" stroke-width="1" opacity="0.9"/>
+</svg></div></div>
+
     <div class="cg" style="font-size:40px;font-weight:600;letter-spacing:4px;text-transform:uppercase;color:#9A6B00;animation:coFade 1s both">Ceremony</div>
     <div class="cg" style="font-size:34px;line-height:1.5;font-weight:600">
       <div style="animation:coUp .8s .3s both">Ganesh Puja</div><div style="animation:coUp .8s .9s both">Tilak</div><div style="animation:coUp .8s 1.5s both">Ring Exchange</div><div style="animation:coUp .8s 2.1s both">Blessings &amp; Aarti</div><div style="animation:coUp .8s 2.7s both">Dinner &amp; Celebration</div>
@@ -258,6 +296,37 @@ button{font-family:'Jost',sans-serif;cursor:pointer}
   </div>
 
   <div id="a3" class="ab col hide" style="gap:18px;padding:0 50px">
+    <div class="rd-wrap"><div class="rd-glow"></div><div class="rd-ring"><svg width="230" height="150" viewBox="0 6 240 160" style="overflow:visible;filter:drop-shadow(0 4px 6px rgba(120,70,0,.25))">
+<circle cx="88" cy="92" r="50" fill="none" stroke="#7a4d06" stroke-width="15" opacity=".25" transform="translate(2 3)"/>
+<circle cx="88" cy="92" r="50" fill="none" stroke="url(#gb)" stroke-width="13"/>
+<circle cx="88" cy="92" r="43.5" fill="none" stroke="url(#gi)" stroke-width="1.6" opacity=".7"/>
+<circle cx="88" cy="92" r="56.2" fill="none" stroke="#fff3b8" stroke-width="1.4" opacity=".8"/>
+<path d="M48 62 A50 50 0 0 1 80 43" fill="none" stroke="#fffbe0" stroke-width="3" stroke-linecap="round" opacity=".9"/><circle cx="152" cy="92" r="50" fill="none" stroke="#7a4d06" stroke-width="15" opacity=".25" transform="translate(2 3)"/>
+<circle cx="152" cy="92" r="50" fill="none" stroke="url(#gb)" stroke-width="13"/>
+<circle cx="152" cy="92" r="43.5" fill="none" stroke="url(#gi)" stroke-width="1.6" opacity=".7"/>
+<circle cx="152" cy="92" r="56.2" fill="none" stroke="#fff3b8" stroke-width="1.4" opacity=".8"/>
+<path d="M112 62 A50 50 0 0 1 144 43" fill="none" stroke="#fffbe0" stroke-width="3" stroke-linecap="round" opacity=".9"/>
+<g clip-path="url(#cl)"><circle cx="88" cy="92" r="50" fill="none" stroke="#7a4d06" stroke-width="15" opacity=".25" transform="translate(2 3)"/>
+<circle cx="88" cy="92" r="50" fill="none" stroke="url(#gb)" stroke-width="13"/>
+<circle cx="88" cy="92" r="43.5" fill="none" stroke="url(#gi)" stroke-width="1.6" opacity=".7"/>
+<circle cx="88" cy="92" r="56.2" fill="none" stroke="#fff3b8" stroke-width="1.4" opacity=".8"/>
+<path d="M48 62 A50 50 0 0 1 80 43" fill="none" stroke="#fffbe0" stroke-width="3" stroke-linecap="round" opacity=".9"/></g>
+<g stroke="#A81265" stroke-width="1.2" stroke-linejoin="round">
+<polygon points="77,14 99,14 110,30 66,30" fill="url(#pc)"/>
+<polygon points="66,30 110,30 88,48" fill="url(#pp)"/>
+<polyline points="77,14 82,30 88,48 94,30 99,14" fill="none"/>
+<polyline points="72,22 104,22" fill="none" opacity=".5"/></g>
+<polygon points="77,14 87,14 82,30 72,30" fill="#fff" opacity=".6"/>
+<path d="M70 31 L74 44 M106 31 L102 44" stroke="url(#gb)" stroke-width="3" stroke-linecap="round"/><g stroke="#A81265" stroke-width="1.2" stroke-linejoin="round">
+<polygon points="141,14 163,14 174,30 130,30" fill="url(#pc)"/>
+<polygon points="130,30 174,30 152,48" fill="url(#pp)"/>
+<polyline points="141,14 146,30 152,48 158,30 163,14" fill="none"/>
+<polyline points="136,22 168,22" fill="none" opacity=".5"/></g>
+<polygon points="141,14 151,14 146,30 136,30" fill="#fff" opacity=".6"/>
+<path d="M134 31 L138 44 M170 31 L166 44" stroke="url(#gb)" stroke-width="3" stroke-linecap="round"/>
+<path transform="translate(110 10)" d="M0 -8Q2 -2 8 0Q2 2 0 8Q-2 2 -8 0Q-2 -2 0 -8Z" fill="#fff" stroke="#E2A92B" stroke-width="1" opacity="1"/><path transform="translate(176 6)" d="M0 -6Q2 -2 6 0Q2 2 0 6Q-2 2 -6 0Q-2 -2 0 -6Z" fill="#fff" stroke="#E2A92B" stroke-width="1" opacity="1"/><path transform="translate(60 22)" d="M0 -5Q2 -2 5 0Q2 2 0 5Q-2 2 -5 0Q-2 -2 0 -5Z" fill="#fff" stroke="#E2A92B" stroke-width="1" opacity="0.9"/>
+</svg></div></div>
+
     <div style="font-size:16px;letter-spacing:6px;text-transform:uppercase;color:#7A5000;font-weight:800;animation:coFade 1s both">Hosted by</div>
     <div style="width:80px;height:2px;background:#B8860B;animation:coFade 1s .3s both"></div>
     <div class="cg" style="font-size:32px;font-weight:700;line-height:1.45;letter-spacing:1px;white-space:nowrap;color:#5A0F1F;animation:coUp 1s .5s both">SANJAY KUMAR SHARMA<br>RAVINDER SHARMA</div>
